@@ -5,6 +5,6 @@ typedef struct list_iterator {
     struct node_t *next;
 } iterator;
 
-iterator init_iterator(const struct linked_list* const list);
+static iterator init_iterator(const struct linked_list* const list);
 
-void step(iterator *i);
+static void step(iterator *i);

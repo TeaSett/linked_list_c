@@ -4,16 +4,32 @@
 #include <stdio.h>
 #include "list_iterator.h"
 
-typedef struct linked_list linked_list;
+typedef struct node_t { 
+    struct node_t *next;
+    void *data; 
+} node;
+
+typedef struct linked_list {
+    struct node_t *start;
+} linked_list;
 
 
-struct linked_list init_list() {
-    linked_list new = {NULL};
-    return new;
+struct linked_list * create_list() {
+    linked_list *list = (linked_list *) malloc(sizeof(linked_list));
+    
+    if (list == NULL) perror("Error memory allocation");
+    else list->start = NULL;
+
+    return list;
 }
 
 
 void clean_list(struct linked_list *list) {
+    if (list == NULL) {
+        printf("List not exist");
+        return;
+    }
+
     void *res = pop(list);
     while (res) {
         free(res);
@@ -23,17 +39,15 @@ void clean_list(struct linked_list *list) {
 }
 
 
-struct linked_list * create_dynamic_list() {
-    linked_list *list = (linked_list *) malloc(sizeof(linked_list));
-    (*list) = init_list();
-
-    return list;
-}
-
-
-void delete_dynamic_list(struct linked_list *list) {
+void delete_list(struct linked_list *list) {
+    if (list == NULL) {
+        printf("List not exist");
+        return;
+    }
+    
     clean_list(list);
     free(list);
+    list = NULL;
 }
 
 
@@ -41,6 +55,10 @@ int print_list(const struct linked_list* const list, const char * delimiter) {
     if (list->start == NULL) {
         printf("List is empty");
         return -1;
+    }
+    if (list == NULL) {
+        printf("List not exist");
+        return;
     }
     
     int ret = 0;
@@ -54,6 +72,16 @@ int print_list(const struct linked_list* const list, const char * delimiter) {
 
 
 void push(struct linked_list *list, void *data, unsigned data_size) {
+    if (list == NULL) {
+        printf("List not exist");
+        return;
+    }
+    if (data == NULL) {
+        printf("Data not exist");
+        return;
+    }
+
+
     struct node_t *new = (struct node_t*) malloc(sizeof(struct node_t));
     if (!new) {
         perror("Error memory allocation");
@@ -73,6 +101,10 @@ void push(struct linked_list *list, void *data, unsigned data_size) {
 
 
 void* pop(struct linked_list *list) {
+    if (list == NULL) {
+        printf("List not exist");
+        return;
+    }
     if (list->start == NULL) return NULL;
 
     void *data_cpy = list->start->data;
@@ -100,4 +132,21 @@ static node* swap(iterator *i, node* nd) {
     node *buf = i->current;
     i->current->next = nd;
     return buf;
+}
+
+
+static iterator init_iterator(const struct linked_list* const list) {
+    iterator i = {list->start, list->start->next};
+    return i;
+}
+
+
+static void step(iterator *i) {
+    if (i->next == NULL) {
+        i->current = NULL;
+        return;
+    }
+    struct node_t *buf = i->next->next;
+    i->current = i->next;
+    i->next = buf;
 }

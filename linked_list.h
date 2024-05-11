@@ -1,18 +1,10 @@
 #pragma once
 
-typedef struct node_t { 
-    struct node_t *next;
-    void *data; 
-} node;
+extern struct linked_list;
 
-struct linked_list {
-    struct node_t *start;
-};
-
-struct linked_list init_list();
+struct linked_list * create_list();
 void clean_list(struct linked_list *list);
-struct linked_list * create_dynamic_list();
-void delete_dynamic_list(struct linked_list *list);
+void delete_list(struct linked_list *list);
 
 int print_list(const struct linked_list* const list, const char * delimiter);
 
