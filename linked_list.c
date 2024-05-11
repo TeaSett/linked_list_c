@@ -39,28 +39,28 @@ void clean_list(struct linked_list *list) {
 }
 
 
-void delete_list(struct linked_list *list) {
-    if (list == NULL) {
+void delete_list(struct linked_list **list) {
+    if (*list == NULL) {
         printf("List not exist");
         return;
     }
     
-    clean_list(list);
-    free(list);
-    list = NULL;
+    clean_list(*list);
+    free(*list);
+    *list = NULL;
 }
 
 
 int print_list(const struct linked_list* const list, const char * delimiter) {
+    if (list == NULL) {
+        printf("List not exist");
+        return -1;
+    }
     if (list->start == NULL) {
         printf("List is empty");
         return -1;
     }
-    if (list == NULL) {
-        printf("List not exist");
-        return;
-    }
-    
+        
     int ret = 0;
     iterator i = init_iterator(list);
     for (; i.current != NULL; step(&i)) {
@@ -103,7 +103,7 @@ void push(struct linked_list *list, void *data, unsigned data_size) {
 void* pop(struct linked_list *list) {
     if (list == NULL) {
         printf("List not exist");
-        return;
+        return NULL;
     }
     if (list->start == NULL) return NULL;
 
