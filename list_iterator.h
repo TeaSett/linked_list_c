@@ -8,4 +8,3 @@ typedef struct list_iterator {
 iterator init_iterator(const struct linked_list* const list);
 
 void step(iterator *i);
-node* swap(iterator *i, node* nd);

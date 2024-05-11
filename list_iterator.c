@@ -17,10 +17,3 @@ void step(iterator *i) {
     i->current = i->next;
     i->next = buf;
 }
-
-
-node* swap(iterator *i, node* nd) {
-    node *buf = i->current;
-    i->current->next = nd;
-    return buf;
-}

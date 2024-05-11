@@ -86,10 +86,18 @@ void* pop(struct linked_list *list) {
 }
 
 
+static node* swap(iterator *i, node* nd);
+
 void reverse(struct linked_list *list) {
     node *buf = NULL;
     for (iterator i = init_iterator(list); i.current != NULL; step(&i)) {
         buf = swap(&i, buf);
     }
     list->start = buf;
+}
+
+static node* swap(iterator *i, node* nd) {
+    node *buf = i->current;
+    i->current->next = nd;
+    return buf;
 }
