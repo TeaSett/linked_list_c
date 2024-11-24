@@ -10,7 +10,13 @@
 #include "linked_list_&_node.h"
 
 
-void push(struct linked_list* const list, void *data, unsigned data_size) {
+void init_node(node **nd, char *allocated, unsigned long dtsz) {
+    (*nd) = (node*) (allocated + dtsz);
+    (*nd)->data = allocated;
+}
+
+
+void push_front(struct linked_list* const list, void *data, unsigned data_size) {
     size_t alloc_size = data_size + sizeof(node);
 
     char *alloc = malloc(alloc_size);
@@ -29,7 +35,4 @@ void push(struct linked_list* const list, void *data, unsigned data_size) {
 }
 
 
-void init_node(node **nd, char *allocated, unsigned long dtsz) {
-    (*nd) = (node*) (allocated + dtsz);
-    (*nd)->data = allocated;
-}
+

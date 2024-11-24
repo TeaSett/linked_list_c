@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "linked_list_&_node.h"
 
-void* pop(linked_list * const list) {
+void* pop_front(linked_list * const list) {
     if (list->head == NULL) return NULL;
 
     node *old = list->head;

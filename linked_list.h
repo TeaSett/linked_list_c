@@ -12,7 +12,7 @@ struct linked_list;
 int alloc_list(struct linked_list **list);
 void init_list(struct linked_list * const list);
 #define alloc_and_init_list_with_nullcheck(list) \
-    if (alloc_list(&list)) init_list(list);
+    if (alloc_list(&list)) init_list(list)
 
 
 void clean_list(struct linked_list *list);
@@ -20,7 +20,13 @@ void free_list(struct linked_list **list);
 
 int list_is_empty(const struct linked_list* const list);
 
-void push(struct linked_list* const list, void *data, unsigned data_size);
-void* pop(struct linked_list* const list);
+void push_front(struct linked_list* const list, void *data, unsigned data_size);
+void* pop_front(struct linked_list* const list);
+#ifdef DOUBLY
+void push_back(struct linked_list* const list, void *data, unsigned data_size);
+void* pop_back(struct linked_list* const list);
+#endif
 
+#ifndef DOUBLY
 void reverse(struct linked_list *list);
+#endif

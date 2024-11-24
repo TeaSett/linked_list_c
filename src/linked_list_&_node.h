@@ -9,11 +9,17 @@
 
 typedef struct node_t { 
     struct node_t *next;
+    #ifdef DOUBLY
+    struct node_t *prev;
+    #endif
     void *data; 
 } node;
 
 typedef struct linked_list {
     struct node_t *head;
+    #ifdef DOUBLY
+    struct node_t *tail;
+    #endif
     char error_buf[50];
 } linked_list;
 

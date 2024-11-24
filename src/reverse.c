@@ -5,6 +5,7 @@
  * You should have received a copy of the GNU Lesser General Public License along with linked_list_c library. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#ifndef DOUBLY
 #include <stddef.h>
 #include "list_iterator.h"
 
@@ -24,3 +25,5 @@ static node* swap(iterator *i, node* nd) {
     i->current->next = nd;
     return buf;
 }
+
+#endif
