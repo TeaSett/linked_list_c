@@ -5,22 +5,22 @@
  * You should have received a copy of the GNU Lesser General Public License along with linked_list library. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include <stddef.h>
+#include "list_iterator.h"
 
-struct linked_list;
+static node* swap(iterator *i, node* nd);
 
-int alloc_list(struct linked_list **list);
-void init_list(struct linked_list * const list);
-#define alloc_and_init_with_nullcheck(list) \
-    if (alloc_list(&list)) init_list(list);
+void reverse(struct linked_list *list) {
+    node *buf = NULL;
+    iterator i;
+    for (init_iterator(&i, list); i.current != NULL; step(&i)) {
+        buf = swap(&i, buf);
+    }
+    list->head = buf;
+}
 
-
-void clean_list(struct linked_list *list);
-void free_list(struct linked_list **list);
-
-int list_is_empty(const struct linked_list* const list);
-
-void push(struct linked_list* const list, void *data, unsigned data_size);
-void* pop(struct linked_list* const list);
-
-void reverse(struct linked_list *list);
+static node* swap(iterator *i, node* nd) {
+    node *buf = i->current;
+    i->current->next = nd;
+    return buf;
+}

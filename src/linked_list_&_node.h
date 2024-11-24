@@ -7,20 +7,15 @@
 
 #pragma once
 
-struct linked_list;
+typedef struct node_t { 
+    struct node_t *next;
+    void *data; 
+} node;
 
-int alloc_list(struct linked_list **list);
-void init_list(struct linked_list * const list);
-#define alloc_and_init_with_nullcheck(list) \
-    if (alloc_list(&list)) init_list(list);
+typedef struct linked_list {
+    struct node_t *head;
+    char error_buf[50];
+} linked_list;
 
 
-void clean_list(struct linked_list *list);
-void free_list(struct linked_list **list);
-
-int list_is_empty(const struct linked_list* const list);
-
-void push(struct linked_list* const list, void *data, unsigned data_size);
-void* pop(struct linked_list* const list);
-
-void reverse(struct linked_list *list);
+void init_node(node **nd, char *allocated, unsigned long dtsz);

@@ -1,5 +1,14 @@
 /.vscode
 /linked_list.o
 /test
-/test.c
 /test.dSYM
+/build/create_delete.o
+/build/list_iterator.o
+/build/pop.o
+/build/push.o
+/build/reverse.o
+.DS_Store
+libsingly_linked_list.a
+essential_test
+reverse_test
+simple_test

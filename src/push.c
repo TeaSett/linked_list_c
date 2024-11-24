@@ -5,22 +5,31 @@
  * You should have received a copy of the GNU Lesser General Public License along with linked_list library. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-struct linked_list;
-
-int alloc_list(struct linked_list **list);
-void init_list(struct linked_list * const list);
-#define alloc_and_init_with_nullcheck(list) \
-    if (alloc_list(&list)) init_list(list);
+#include <memory.h>
+#include <stdlib.h>
+#include "linked_list_&_node.h"
 
 
-void clean_list(struct linked_list *list);
-void free_list(struct linked_list **list);
+void push(struct linked_list* const list, void *data, unsigned data_size) {
+    size_t alloc_size = data_size + sizeof(node);
 
-int list_is_empty(const struct linked_list* const list);
+    char *alloc = malloc(alloc_size);
+    if (!alloc) {
+        char error_msg[] = "PUSH ERROR: Error memory allocation";
+        memcpy(list->error_buf, error_msg, sizeof error_msg);
+        return ;
+    }
 
-void push(struct linked_list* const list, void *data, unsigned data_size);
-void* pop(struct linked_list* const list);
+    node *new;
+    init_node(&new, alloc, data_size);
+    memcpy(new->data, data, data_size);
+    
+    new->next = list->head;
+    list->head = new;
+}
 
-void reverse(struct linked_list *list);
+
+void init_node(node **nd, char *allocated, unsigned long dtsz) {
+    (*nd) = (node*) (allocated + dtsz);
+    (*nd)->data = allocated;
+}
