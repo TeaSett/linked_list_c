@@ -12,7 +12,7 @@
 
 int alloc_list(struct linked_list **list) {
     (*list) = malloc(sizeof(linked_list));
-    return list == NULL;
+    return list != NULL;
 }
 
 void init_list(linked_list* const list) {

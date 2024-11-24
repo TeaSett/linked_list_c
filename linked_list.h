@@ -11,7 +11,7 @@ struct linked_list;
 
 int alloc_list(struct linked_list **list);
 void init_list(struct linked_list * const list);
-#define alloc_and_init_with_nullcheck(list) \
+#define alloc_and_init_list_with_nullcheck(list) \
     if (alloc_list(&list)) init_list(list);
 
 
