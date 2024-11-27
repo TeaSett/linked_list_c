@@ -9,9 +9,9 @@
 
 typedef struct node_t { 
     struct node_t *next;
-    #ifdef DOUBLY
+#ifdef DOUBLY
     struct node_t *prev;
-    #endif
+#endif
     void *data; 
 } node;
 

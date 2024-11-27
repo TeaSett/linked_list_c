@@ -17,6 +17,9 @@ int alloc_list(struct linked_list **list) {
 
 void init_list(linked_list* const list) {
     list->head = NULL;
+    #ifdef DOUBLY
+    list->tail = NULL;
+    #endif
     memset(list->error_buf, 0, 50);
 }
 
@@ -30,6 +33,9 @@ void clean_list(linked_list* const list) {
     }
     assert(i.current == i.next && i.current == NULL);
     list->head = NULL;
+    #ifdef DOUBLY
+    list->tail = NULL;
+    #endif
 }
 
 void free_list(struct linked_list **list) {

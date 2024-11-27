@@ -11,11 +11,33 @@
 void* pop_front(linked_list * const list) {
     if (list->head == NULL) return NULL;
 
+    #ifdef DOUBLY
+    if (list->head == list->tail) list->tail = NULL;
+    #endif
     node *old = list->head;
     list->head = old->next;
 
     void *ret = old->data;
+    #ifdef DOUBLY
+    old->prev = 
+    #endif
     old->next = old->data = NULL;
     
     return ret;
 }
+
+
+#ifdef DOUBLY
+void* pop_back(linked_list * const list) {
+    if (list->head == NULL) return NULL;
+
+    if (list->head == list->tail) list->head = NULL;
+    node *old = list->tail;
+    list->tail = old->prev;
+
+    void *ret = old->data;
+    old->next = old->prev = old->data = NULL;
+    
+    return ret;
+}
+#endif

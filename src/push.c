@@ -31,8 +31,30 @@ void push_front(struct linked_list* const list, void *data, unsigned data_size) 
     memcpy(new->data, data, data_size);
     
     new->next = list->head;
+#ifdef DOUBLY
+    list->head->prev = new;
+    if (list->tail == NULL) list->tail = new;
+#endif
     list->head = new;
 }
 
+#ifdef DOUBLY
+void push_back(struct linked_list* const list, void *data, unsigned data_size) {
+    size_t alloc_size = data_size + sizeof(node);
 
+    char *alloc = malloc(alloc_size);
+    if (!alloc) {
+        char error_msg[] = "PUSH ERROR: Error memory allocation";
+        memcpy(list->error_buf, error_msg, sizeof error_msg);
+        return ;
+    }
 
+    node *new;
+    init_node(&new, alloc, data_size);
+    memcpy(new->data, data, data_size);
+    
+    new->prec = list->tail;
+    if (list->head == NULL) list->head = new;
+    list->tail = new;
+}
+#endif
