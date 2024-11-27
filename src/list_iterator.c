@@ -9,9 +9,8 @@
 #include "list_iterator.h"
 
 
-int alloc_list_iterator(struct list_iterator **i) {
-    (*i) = malloc(sizeof(iterator));
-    return (*i) != NULL;
+unsigned long list_iterator_struct_size() {
+    return sizeof(iterator);
 }
 
 void init_iterator(struct list_iterator* const i, const struct linked_list* const list) {

@@ -10,9 +10,8 @@
 #include <string.h>
 #include "list_iterator.h"
 
-int alloc_list(struct linked_list **list) {
-    (*list) = malloc(sizeof(linked_list));
-    return list != NULL;
+unsigned long list_struct_size() {
+    return sizeof(linked_list);
 }
 
 void init_list(linked_list* const list) {
@@ -30,12 +29,6 @@ void clean_list(linked_list* const list) {
     }
     assert(i.current == i.next && i.current == NULL);
     list->head = NULL;
-}
-
-void free_list(struct linked_list **list) {
-    clean_list(*list);
-    free(*list);
-    (*list) = NULL;
 }
 
 

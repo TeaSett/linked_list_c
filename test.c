@@ -1,31 +1,20 @@
-#include <stdio.h>
 #include <assert.h>
-#include <stdlib.h>
-#include "linked_list.h"
-#include "list_iterator.h"
+#include "basic_routins.h"
+
 
 void fill_list_ints(struct linked_list *list, size_t s) {
     for (int i = 0; i < s; ++i) push(list, &i, sizeof i);
 }
 
-void print_list(struct linked_list *l, char *separator) {
-    if (list_is_empty(l)) return;
-
-    struct list_iterator *i;
-    if (!alloc_list_iterator(&i)) abort();
-    for (init_iterator(i, l); !end_of_list(i); step(i))
-        printf("%d%s", *((int*)current_data(i)), separator);
-}
-
 
 int main() { 
-
+// #define SIMPLE
 #ifdef SIMPLE
 #undef ESSENTIAL
 #undef REVERSE
     {
-    struct linked_list *l;
-    if (alloc_list(&l)) init_list(l);
+    struct linked_list *l = malloc(list_struct_size());
+    if (l) init_list(l);
     else abort();
 
     clean_list(l);
@@ -52,50 +41,58 @@ int main() {
     push(l, &a, sizeof(int));
     push(l, &a, sizeof(int));
     push(l, &a, sizeof(int));
-    free_list(&l);
+    clean_list(l);
+    free(l);
+    l = NULL
     assert(list_is_empty(l));
     }
 #endif
-#if ESSENTIAL
+
+// #define ESSENTIAL
+#ifdef ESSENTIAL
 #undef REVERSE
 #undef SIMPLE
     {
     const size_t s = 10;
-    struct linked_list *l2;
-    alloc_and_init_list_with_nullcheck(l2);
+    struct linked_list *l;
+    alloc_list(l);
     else abort();
 
-    fill_list_ints(l2, s);
-    print_list(l2, " ");
+    fill_list_ints(l, s);
+    print_list(l, " ");
     printf("\n");
 
-    clean_list(l2);
-    print_list(l2, " ");
+    clean_list(l);
+    print_list(l, " ");
     printf("list cleaned\n");
 
-    free_list(&l2);
+    free(l);
+    l = NULL;
     }
 #endif
-#if REVERSE
+
+// #define REVERSE
+#ifdef REVERSE
 #undef ESSENTIAL
 #undef SIMPLE
+    {
+    struct linked_list *l;
+    alloc_list(l);
+    else abort();
 
-    struct linked_list *l3;
-    if (!alloc_list(&l3)) abort();
-    init_list(l3);
-
-    fill_list_ints(l3, 20);
-    print_list(l3, " ");
+    fill_list_ints(l, 20);
+    print_list(l, " ");
     printf("\n");
     
-    reverse(l3);
-    print_list(l3, " ");
+    reverse(l);
+    print_list(l, " ");
     printf("\n");
 
-    clean_list(l3);
-    print_list(l3, " ");
+    clean_list(l);
+    print_list(l, " ");
     printf("list cleaned\n");
-    free_list(&l3);
+    free(l);
+    }
 #endif
     return 0;
 }

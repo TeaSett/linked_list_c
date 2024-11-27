@@ -9,7 +9,7 @@
 
 struct list_iterator;
 
-int alloc_list_iterator(struct list_iterator **i);
+unsigned long list_iterator_struct_size();
 void init_iterator(struct list_iterator* const i, const struct linked_list* const list);
 
 void step(struct list_iterator* const i);

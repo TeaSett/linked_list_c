@@ -9,14 +9,9 @@
 
 struct linked_list;
 
-int alloc_list(struct linked_list **list);
+unsigned long list_struct_size();
 void init_list(struct linked_list * const list);
-#define alloc_and_init_list_with_nullcheck(list) \
-    if (alloc_list(&list)) init_list(list);
-
-
 void clean_list(struct linked_list *list);
-void free_list(struct linked_list **list);
 
 int list_is_empty(const struct linked_list* const list);
 
