@@ -16,7 +16,6 @@ unsigned long list_struct_size() {
 
 void init_list(linked_list* const list) {
     list->head = NULL;
-    memset(list->error_buf, 0, 50);
 }
 
 

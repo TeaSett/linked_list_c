@@ -14,7 +14,6 @@ typedef struct node_t {
 
 typedef struct linked_list {
     struct node_t *head;
-    char error_buf[50];
 } linked_list;
 
 
