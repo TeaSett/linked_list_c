@@ -15,8 +15,12 @@ void init_node(node **nd, char *allocated, unsigned long dtsz) {
     (*nd)->data = allocated;
 }
 
-
-void push_front(struct linked_list* const list, void *data, unsigned data_size) {
+#ifndef DOUBLY
+#define PUSH push
+#else
+#define PUSH push_front
+#endif
+void PUSH(struct linked_list* const list, void *data, unsigned data_size) {
     size_t alloc_size = data_size + sizeof(node);
 
     char *alloc = malloc(alloc_size);
@@ -53,7 +57,7 @@ void push_back(struct linked_list* const list, void *data, unsigned data_size) {
     init_node(&new, alloc, data_size);
     memcpy(new->data, data, data_size);
     
-    new->prec = list->tail;
+    new->prev = list->tail;
     if (list->head == NULL) list->head = new;
     list->tail = new;
 }

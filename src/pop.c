@@ -8,7 +8,13 @@
 #include <stdlib.h>
 #include "linked_list_&_node.h"
 
-void* pop_front(linked_list * const list) {
+#ifndef DOUBLY
+#define POP pop
+#else
+#define POP pop_front
+#endif
+
+void* POP(linked_list * const list) {
     if (list->head == NULL) return NULL;
 
     #ifdef DOUBLY

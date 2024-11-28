@@ -5,7 +5,7 @@
 #include "list_iterator.h"
 
 void fill_list_ints(struct linked_list *list, size_t s) {
-    for (int i = 0; i < s; ++i) push_front(list, &i, sizeof i);
+    for (int i = 0; i < s; ++i) push(list, &i, sizeof i);
 }
 
 void print_list(struct linked_list *l, char *separator) {
@@ -32,26 +32,26 @@ int main() {
     assert(l != NULL);
 
     int a = 42;
-    push_front(l, &a, sizeof(int));
-    int *data = (int*) pop_front(l);
+    push(l, &a, sizeof(int));
+    int *data = (int*) pop(l);
     printf("%d", *data);
     free(data);
     a += 1;
-    push_front(l, &a, sizeof(int));
-    data = (int*) pop_front(l);
+    push(l, &a, sizeof(int));
+    data = (int*) pop(l);
     printf("%d", *data);
     free(data);
     
     clean_list(l);
     a += 1;
-    push_front(l, &a, sizeof(int));
-    data = (int*) pop_front(l);
+    push(l, &a, sizeof(int));
+    data = (int*) pop(l);
     printf("%d", *data);
     free(data);
     assert(list_is_empty(l));
-    push_front(l, &a, sizeof(int));
-    push_front(l, &a, sizeof(int));
-    push_front(l, &a, sizeof(int));
+    push(l, &a, sizeof(int));
+    push(l, &a, sizeof(int));
+    push(l, &a, sizeof(int));
     free_list(&l);
     assert(list_is_empty(l));
     }
