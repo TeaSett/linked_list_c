@@ -17,9 +17,9 @@ typedef struct node_t {
 
 typedef struct linked_list {
     struct node_t *head;
-    #ifdef DOUBLY
+#ifdef DOUBLY
     struct node_t *tail;
-    #endif
+#endif
     char error_buf[50];
 } linked_list;
 

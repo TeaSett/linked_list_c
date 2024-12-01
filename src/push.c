@@ -13,6 +13,10 @@
 void init_node(node **nd, char *allocated, unsigned long dtsz) {
     (*nd) = (node*) (allocated + dtsz);
     (*nd)->data = allocated;
+    (*nd)->next = NULL;
+#ifdef DOUBLY
+    (*nd)->prev = NULL;
+#endif
 }
 
 #ifndef DOUBLY
@@ -36,8 +40,9 @@ void PUSH(struct linked_list* const list, void *data, unsigned data_size) {
     
     new->next = list->head;
 #ifdef DOUBLY
-    list->head->prev = new;
-    if (list->tail == NULL) list->tail = new;
+    if (list->head == NULL && list->tail == NULL) {
+        list->head = list->tail = new;
+    } else list->head->prev = new;
 #endif
     list->head = new;
 }
@@ -58,7 +63,10 @@ void push_back(struct linked_list* const list, void *data, unsigned data_size) {
     memcpy(new->data, data, data_size);
     
     new->prev = list->tail;
-    if (list->head == NULL) list->head = new;
+    if (list->tail == NULL && list->head == NULL) {
+        list->tail = list->head = new;
+    } else list->tail->next = new;
+    
     list->tail = new;
 }
 #endif
