@@ -17,6 +17,10 @@ build/list_iterator.o: src/list_iterator.c
 	mkdir -p build
 	$(CC) $(CFLAGS) -c $^ -o $@
 
+build/iterator_step.o: src/iterator_step.c
+	mkdir -p build
+	$(CC) $(CFLAGS) -c $^ -o $@
+
 build/pop.o: src/pop.c
 	mkdir -p build
 	$(CC) $(CFLAGS) -c $^ -o $@

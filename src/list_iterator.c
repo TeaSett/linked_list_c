@@ -6,6 +6,7 @@
  */
 
 #include <stdlib.h>
+#define DOUBLY
 #include "list_iterator.h"
 
 
@@ -20,20 +21,16 @@ void init_iterator(struct list_iterator* const i, const struct linked_list* cons
 }
 
 
-void step(iterator* const i) {
-    if (i->next == NULL) {
-        i->current = NULL;
-        return;
-    }
-    node *buf = i->next->next;
-    i->current = i->next;
-    i->next = buf;
-}
-
-
 int end_of_list(const iterator* const i) {
     return i->current == i->next;
 }
+
+
+#ifdef DOUBLY
+int begin_list(const iterator* const i) {
+    return i->current->prev == NULL;
+}
+#endif
 
 
 void* current_data(const struct list_iterator* const i) {

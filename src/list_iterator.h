@@ -12,8 +12,3 @@ typedef struct list_iterator {
     struct node_t *current;
     struct node_t *next;
 } iterator;
-
-void init_iterator(struct list_iterator* const i, const struct linked_list* const list);
-
-void step(iterator* const i);
-int end_of_list(const iterator* const i);
