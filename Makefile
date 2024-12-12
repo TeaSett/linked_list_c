@@ -5,7 +5,7 @@
 # You should have received a copy of the GNU Lesser General Public License along with linked_list_c library. If not, see <https://www.gnu.org/licenses/>.
 
 
-libsingly_linked_list.a: build/create_delete.o build/list_iterator.o build/pop.o build/push.o build/reverse.o
+libsingly_linked_list.a: build/create_delete.o build/list_iterator.o build/iterator_step.o build/pop.o build/push.o build/reverse.o
 	$(AR) r $@ $^
 
 

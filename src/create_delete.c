@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "list_iterator.h"
+#include "../list_iterator.h"
 
 int alloc_list(struct linked_list **list) {
     (*list) = malloc(sizeof(linked_list));
@@ -23,12 +24,16 @@ void init_list(linked_list* const list) {
     memset(list->error_buf, 0, 50);
 }
 
-
+#ifndef DOUBLY
+#define STEP step
+#else
+#define STEP step_forward
+#endif
 void clean_list(linked_list* const list) {
     if (list->head == NULL) return;
 
     iterator i;
-    for (init_iterator(&i, list); !end_of_list(&i); step(&i)) {
+    for (init_iterator(&i, list); !end_of_list(&i); STEP(&i)) {
         free(i.current->data);
     }
     assert(i.current == i.next && i.current == NULL);

@@ -11,11 +11,20 @@ struct list_iterator;
 
 int alloc_list_iterator(struct list_iterator **i);
 void init_iterator(struct list_iterator* const i, const struct linked_list* const list);
+#ifdef DOUBLY
+void init_iterator_end(struct list_iterator* const i, const struct linked_list* const list);
+#endif
 
-void step(struct list_iterator* const i);
+#ifndef DOUBLY
+#define STEP step
+#else
+#define STEP step_forward
+#endif
+void STEP(struct list_iterator* const i);
 int end_of_list(const struct list_iterator* const i);
 #ifdef DOUBLY
-int begin_list(const iterator* const i);
+void step_back(struct list_iterator* const i);
+int begin_list(const struct list_iterator* const i);
 #endif
 
 void* current_data(const struct list_iterator* const i);
