@@ -26,8 +26,19 @@ int push(struct linked_list* const list, void *data, unsigned data_size) {
     return 0;
 }
 
-
 void init_node(node **nd, char *allocated, unsigned long dtsz) {
     (*nd) = (node*) (allocated + dtsz);
     (*nd)->data = allocated;
+}
+
+
+int push_nocopy(struct linked_list* const list, void *data) {
+    node *new = malloc(sizeof(node));
+    if (!new) return -1;
+
+    new->data = data;
+    new->next = list->head;
+    list->head = new;
+
+    return 0;
 }
